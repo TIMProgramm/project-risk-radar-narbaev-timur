@@ -1,0 +1,143 @@
+<!-- Developer: Тимур Нарбаев | Group: ITK 23-51 | Lab: Project Risk Radar | Date: 14.11.2026 -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>Project Risk Radar — Тимур Нарбаев</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d2e;--panel2:#172438;--line:#26364c;--text:#edf4ff;--muted:#91a2b9;--blue:#5b8cff;--cyan:#50d6c6;--green:#30c48d;--yellow:#f4bd4f;--red:#ff6b75;--shadow:0 18px 50px #0005}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#203b68 0,transparent 38%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{width:min(1120px,100%);margin:0 auto;padding:26px 22px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;border:1px solid #30445f;background:linear-gradient(115deg,#1c3151,#17243a 65%,#192a40);border-radius:22px;box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#6b8fff,#43d7c5);display:grid;place-items:center;color:#081323;font-size:23px;font-weight:900}
+h1{font-size:clamp(20px,3vw,27px);margin:0;letter-spacing:-.7px}.subtitle{color:#b5c4d8;font-size:13px;margin-top:5px}.student{text-align:right;color:#dce8f7;font-size:13px;line-height:1.55}.student strong{display:block;color:white;font-size:14px}.date{color:#9eb1ca}
+.intro{margin:28px 2px 20px;display:flex;justify-content:space-between;align-items:end;gap:14px}.eyebrow{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--cyan);font-weight:800}.intro h2{font-size:25px;margin:7px 0 5px;letter-spacing:-.6px}.intro p{margin:0;color:var(--muted);font-size:14px;max-width:600px;line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}.stat{padding:17px 18px;border:1px solid var(--line);background:linear-gradient(145deg,#16243a,#111b2b);border-radius:17px;min-height:105px}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-value{font-size:30px;font-weight:800;letter-spacing:-1px;margin-top:9px}.stat small{font-size:11px;color:var(--muted);font-weight:500}
+.layout{display:grid;grid-template-columns: minmax(280px,.85fr) minmax(0,1.55fr);gap:18px;align-items:start}.panel{border:1px solid var(--line);background:linear-gradient(155deg,#152238,#101a2a);border-radius:20px;padding:20px;box-shadow:var(--shadow)}.panel-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.panel-title h3{font-size:17px;margin:0}.panel-title span{font-size:11px;color:var(--muted)}
+.field{margin-bottom:14px}.field label{display:block;font-size:12px;color:#c3d0e1;margin-bottom:7px;font-weight:650}.field input,.field select,.field textarea{width:100%;border:1px solid #30435d;border-radius:11px;background:#0d1726;color:var(--text);padding:12px 13px;outline:none;transition:.2s}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #5b8cff20}.field textarea{min-height:74px;resize:vertical}.field input::placeholder,.field textarea::placeholder{color:#6f8199}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.scale-hint{font-size:10px;color:#8194ad;margin-top:5px}.primary{width:100%;border:0;border-radius:12px;padding:13px 16px;background:linear-gradient(100deg,#5c83ff,#5a6de4);color:white;font-weight:750;box-shadow:0 8px 22px #4b70e744;transition:transform .15s,filter .15s}.primary:hover{filter:brightness(1.1);transform:translateY(-1px)}.primary:active{transform:scale(.98)}
+.form-note{font-size:11px;color:#8193aa;line-height:1.5;margin:12px 0 0}
+.list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.list-head h3{font-size:17px;margin:0}.controls{display:flex;gap:8px;align-items:center}.controls select{background:#0d1726;border:1px solid #30435d;border-radius:9px;color:#cbd8e8;padding:8px 10px;font-size:11px;max-width:150px}
+.risk-list{display:grid;gap:11px}.risk{border:1px solid #2a3a51;background:#101b2b;border-radius:15px;padding:15px 15px 13px;position:relative;overflow:hidden}.risk:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--risk)}.risk.high{--risk:var(--red)}.risk.medium{--risk:var(--yellow)}.risk.low{--risk:var(--green)}
+.risk-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.risk-name{font-weight:750;font-size:14px;line-height:1.4;overflow-wrap:anywhere}.badge{font-size:10px;font-weight:800;border-radius:30px;padding:5px 9px;white-space:nowrap}.badge.high{color:#ff9ca3;background:#ff6b751b;border:1px solid #ff6b7540}.badge.medium{color:#ffd77e;background:#f4bd4f1b;border:1px solid #f4bd4f40}.badge.low{color:#7ce4b8;background:#30c48d1b;border:1px solid #30c48d40}
+.risk-desc{font-size:12px;color:#9eafc4;line-height:1.5;margin:8px 0 12px;overflow-wrap:anywhere}.risk-meta{display:flex;flex-wrap:wrap;gap:7px 14px;color:#9fb0c6;font-size:11px}.risk-meta b{color:#e4edf8;font-weight:700}.score{margin-left:auto;color:#fff;font-weight:800;font-size:12px}.risk-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}.small-btn{border:1px solid #344861;background:#17263a;color:#b9c8da;border-radius:8px;padding:6px 9px;font-size:11px}.small-btn:hover{background:#243750;color:white}.small-btn.delete:hover{border-color:#ff6b75;color:#ff9ca3}
+.empty{border:1px dashed #344760;border-radius:14px;padding:34px 18px;text-align:center;color:#8fa2ba}.empty-icon{font-size:28px;margin-bottom:8px}.empty strong{display:block;color:#dce7f5;font-size:14px;margin-bottom:5px}.empty p{font-size:12px;margin:0;line-height:1.5}
+.legend{display:flex;gap:13px;flex-wrap:wrap;margin-top:15px;padding-top:14px;border-top:1px solid #26364b}.legend-item{font-size:10px;color:#9fb0c6;display:flex;align-items:center;gap:6px}.dot{width:8px;height:8px;border-radius:50%}.foot{display:flex;justify-content:space-between;gap:10px;margin-top:19px;color:#71849d;font-size:10px}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#1d344d;border:1px solid #45617f;color:white;padding:11px 16px;border-radius:12px;font-size:12px;transition:.25s;pointer-events:none;box-shadow:var(--shadow);z-index:5}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:780px){.app{padding:15px 13px 32px}.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}header{padding:16px}.student{font-size:11px}.student strong{font-size:12px}.intro{margin-top:23px}.intro h2{font-size:22px}}
+@media(max-width:420px){.brand{gap:10px}.logo{width:42px;height:42px}.subtitle{font-size:11px}.student{max-width:118px}.panel{padding:16px}.pair{gap:8px}.stat{padding:14px;min-height:94px}.stat-value{font-size:26px}.list-head{align-items:flex-start;flex-direction:column}.controls{width:100%}.controls select{flex:1;max-width:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo">◎</div><div><h1>Project Risk Radar</h1><div class="subtitle">IT Project Management · Risk Control Center</div></div></div>
+  <div class="student"><strong>Тимур Нарбаев</strong>Группа ITK 23-51<br><span class="date" id="today"></span></div>
+</header>
+
+<section class="intro">
+  <div><div class="eyebrow">Project workspace / MVP v1.0</div><h2>Панель управления рисками</h2><p>Фиксируйте угрозы проекта, оценивайте вероятность и влияние, чтобы быстро находить самые критичные риски.</p></div>
+</section>
+
+<section class="stats" aria-label="Статистика рисков">
+  <div class="stat"><div class="stat-top"><span>Всего рисков</span><span>◈</span></div><div class="stat-value" id="totalCount">0</div></div>
+  <div class="stat"><div class="stat-top"><span>Критические</span><span style="color:var(--red)">●</span></div><div class="stat-value" id="highCount">0</div><small>Высокий уровень</small></div>
+  <div class="stat"><div class="stat-top"><span>Средние</span><span style="color:var(--yellow)">●</span></div><div class="stat-value" id="mediumCount">0</div><small>Требуют внимания</small></div>
+  <div class="stat"><div class="stat-top"><span>Низкие</span><span style="color:var(--green)">●</span></div><div class="stat-value" id="lowCount">0</div><small>Под наблюдением</small></div>
+</section>
+
+<main class="layout">
+  <section class="panel">
+    <div class="panel-title"><h3>＋ Новый риск</h3><span>ADD RISK</span></div>
+    <form id="riskForm">
+      <div class="field"><label for="riskTitle">Название риска *</label><input id="riskTitle" maxlength="90" placeholder="Например: Срыв сроков разработки" required></div>
+      <div class="field"><label for="riskDescription">Описание / возможные последствия</label><textarea id="riskDescription" maxlength="300" placeholder="Кратко опишите причину или влияние на проект..."></textarea></div>
+      <div class="pair">
+        <div class="field"><label for="probability">Вероятность</label><select id="probability"><option value="1">1 — Очень низкая</option><option value="2">2 — Низкая</option><option value="3" selected>3 — Средняя</option><option value="4">4 — Высокая</option><option value="5">5 — Очень высокая</option></select><div class="scale-hint">Шкала от 1 до 5</div></div>
+        <div class="field"><label for="impact">Сила влияния</label><select id="impact"><option value="1">1 — Незначительная</option><option value="2">2 — Низкая</option><option value="3" selected>3 — Средняя</option><option value="4">4 — Серьёзная</option><option value="5">5 — Критическая</option></select><div class="scale-hint">Шкала от 1 до 5</div></div>
+      </div>
+      <button class="primary" type="submit">Добавить в реестр <span>→</span></button>
+    </form>
+    <p class="form-note">Критичность рассчитывается автоматически: вероятность × сила влияния. Все записи сохраняются в памяти браузера (localStorage).</p>
+  </section>
+
+  <section class="panel">
+    <div class="list-head"><div><h3>Реестр рисков</h3><span style="font-size:11px;color:var(--muted)" id="shownCount">0 записей</span></div>
+      <div class="controls"><select id="filterLevel" aria-label="Фильтр по уровню"><option value="all">Все уровни</option><option value="high">Высокие</option><option value="medium">Средние</option><option value="low">Низкие</option></select><select id="sortMode" aria-label="Сортировка"><option value="desc">Сначала опасные</option><option value="asc">Сначала безопасные</option><option value="new">Сначала новые</option></select></div>
+    </div>
+    <div id="riskList" class="risk-list"></div>
+    <div class="legend">
+      <div class="legend-item"><span class="dot" style="background:var(--green)"></span>Низкий: 1–6</div>
+      <div class="legend-item"><span class="dot" style="background:var(--yellow)"></span>Средний: 7–14</div>
+      <div class="legend-item"><span class="dot" style="background:var(--red)"></span>Высокий: 15–25</div>
+    </div>
+  </section>
+</main>
+<div class="foot"><span>PROJECT RISK RADAR · MVP v1.0</span><span>Данные хранятся локально на этом устройстве</span></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const STORAGE_KEY = "projectRiskRadar_timur_v1";
+let risks = [];
+try { risks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); if (!Array.isArray(risks)) risks = []; } catch(e) { risks = []; }
+
+const $ = id => document.getElementById(id);
+const today = new Date();
+$("today").textContent = today.toLocaleDateString("ru-RU",{day:"2-digit",month:"long",year:"numeric"});
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(risks)); }
+function level(score){ return score >= 15 ? "high" : score >= 7 ? "medium" : "low"; }
+function levelName(key){ return key === "high" ? "Высокий риск" : key === "medium" ? "Средний риск" : "Низкий риск"; }
+function showToast(message){ const t=$("toast");t.textContent=message;t.classList.add("show");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove("show"),2200); }
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+
+function render(){
+  const high=risks.filter(r=>level(r.probability*r.impact)==="high").length;
+  const medium=risks.filter(r=>level(r.probability*r.impact)==="medium").length;
+  const low=risks.length-high-medium;
+  $("totalCount").textContent=risks.length;$("highCount").textContent=high;$("mediumCount").textContent=medium;$("lowCount").textContent=low;
+  const filter=$("filterLevel").value, sort=$("sortMode").value;
+  let visible=risks.filter(r=>filter==="all"||level(r.probability*r.impact)===filter);
+  visible.sort((a,b)=>sort==="new"?b.createdAt-a.createdAt:sort==="asc"?(a.probability*a.impact)-(b.probability*b.impact):(b.probability*b.impact)-(a.probability*a.impact));
+  $("shownCount").textContent=`Показано ${visible.length} из ${risks.length}`;
+  if(!visible.length){$("riskList").innerHTML=`<div class="empty"><div class="empty-icon">⌁</div><strong>${risks.length?"Ничего не найдено":"Реестр пока пуст"}</strong><p>${risks.length?"Измени фильтр, чтобы увидеть другие риски.":"Добавь первый риск с помощью формы слева — здесь появится его оценка."}</p></div>`;return;}
+  $("riskList").innerHTML=visible.map(r=>{
+    const score=r.probability*r.impact, lvl=level(score);
+    return `<article class="risk ${lvl}">
+      <div class="risk-top"><div class="risk-name">${escapeHTML(r.title)}</div><span class="badge ${lvl}">${levelName(lvl)}</span></div>
+      ${r.description?`<div class="risk-desc">${escapeHTML(r.description)}</div>`:""}
+      <div class="risk-meta"><span>Вероятность: <b>${r.probability}/5</b></span><span>Влияние: <b>${r.impact}/5</b></span><span class="score">Балл: ${score}/25</span></div>
+      <div class="risk-actions"><button class="small-btn" data-action="edit" data-id="${r.id}">Изменить оценку</button><button class="small-btn delete" data-action="delete" data-id="${r.id}">Удалить</button></div>
+    </article>`;
+  }).join("");
+}
+
+$("riskForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const title=$("riskTitle").value.trim();if(!title)return;
+  risks.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),title,description:$("riskDescription").value.trim(),probability:Number($("probability").value),impact:Number($("impact").value),createdAt:Date.now()});
+  save();render();e.target.reset();$("probability").value="3";$("impact").value="3";$("riskTitle").focus();showToast("Риск добавлен в реестр");
+});
+$("riskList").addEventListener("click",e=>{
+  const btn=e.target.closest("button[data-action]");if(!btn)return;
+  const id=btn.dataset.id, risk=risks.find(r=>r.id===id);if(!risk)return;
+  if(btn.dataset.action==="delete"){
+    if(!confirm(`Удалить риск «${risk.title}»?`))return;
+    risks=risks.filter(r=>r.id!==id);save();render();showToast("Риск удалён");
+  }else if(btn.dataset.action==="edit"){
+    const p=prompt("Вероятность (от 1 до 5):",String(risk.probability));if(p===null)return;
+    const i=prompt("Сила влияния (от 1 до 5):",String(risk.impact));if(i===null)return;
+    const pn=Number(p), inn=Number(i);
+    if(!Number.isInteger(pn)||pn<1||pn>5||!Number.isInteger(inn)||inn<1||inn>5){alert("Введите целые числа от 1 до 5.");return;}
+    risk.probability=pn;risk.impact=inn;save();render();showToast("Оценка риска обновлена");
+  }
+});
+$("filterLevel").addEventListener("change",render);
+$("sortMode").addEventListener("change",render);
+
+// Demo records are intentionally not inserted: the student can add and test their own risks.
+render();
+</script>
+</body>
+</html>
